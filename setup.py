@@ -6,7 +6,7 @@ setup(
     name='region-calc',
     author='n4sr',
     url='https://github.com/n4sr/region-calc',
-    version='0.1.0',
+    version='0.1.1',
     license='GPL3.0',
     packages=find_packages(),
     python_requires='>=3.6',

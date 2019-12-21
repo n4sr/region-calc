@@ -8,6 +8,8 @@ def run():
     args = parser.parse_args(argv[1:])
     if args.coords:
         print(get_output(args.coords, 'coords', avg=args.avg))
+    elif args.region:
+        print(get_output(args.region, 'region', avg=args.avg))
     elif args.file:
         for file in args.file:
             print(get_output(file, 'file', avg=args.avg))
@@ -23,6 +25,12 @@ def get_output(i, fmt, avg=False):
         region = region_from_filename(i)
         coords = coords_from_region(region)
         file = filename_from_region(region)
+    elif fmt == 'region':
+        coords = coords_from_region(i)
+        region = region_from_coords(coords)
+        file = filename_from_region(region)
+    else:
+        raise ValueError(fmt)
     pos1 = coords[0:2]
     pos2 = coords[2:4]
     if avg:
@@ -64,6 +72,13 @@ arggroup.add_argument(
     type=str,
     dest='file',
     help='input as filename'
+)
+arggroup.add_argument(
+    '-r',
+    nargs=2,
+    type=int,
+    dest='region',
+    help='input as region'
 )
 arggroup.add_argument(
     '-c',
